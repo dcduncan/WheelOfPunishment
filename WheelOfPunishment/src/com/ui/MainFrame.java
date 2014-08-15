@@ -13,6 +13,7 @@ import javax.swing.border.EmptyBorder;
  *
  * @author niklj_000
  */
+@SuppressWarnings("serial")
 public class MainFrame extends JFrame {
 
     /**
@@ -22,6 +23,7 @@ public class MainFrame extends JFrame {
      */
     public static void main(final String[] args) {
         EventQueue.invokeLater(new Runnable() {
+
             @Override
             public void run() {
                 try {
@@ -73,7 +75,8 @@ public class MainFrame extends JFrame {
      */
     public MainFrame() {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setBounds(this.xStartBound, this.yStartBound, this.xEndBound, this.yEndBound);
+        this.setBounds(
+                this.xStartBound, this.yStartBound, this.xEndBound, this.yEndBound);
         this.contentPane = new JPanel();
         this.contentPane.setBorder(new EmptyBorder(this.borderSize, this.borderSize,
                 this.borderSize, this.borderSize));
@@ -81,10 +84,12 @@ public class MainFrame extends JFrame {
         this.setContentPane(this.contentPane);
 
         final JButton btnSpinTheWheel = new JButton("Spin The Wheel!");
-        this.contentPane.add(btnSpinTheWheel, BorderLayout.SOUTH);
+        this.contentPane.add(
+                btnSpinTheWheel, BorderLayout.SOUTH);
 
         final JButton btnEditWheelOptions = new JButton("Edit Wheel Options");
-        this.contentPane.add(btnEditWheelOptions, BorderLayout.NORTH);
+        this.contentPane.add(
+                btnEditWheelOptions, BorderLayout.NORTH);
     }
 
 }
