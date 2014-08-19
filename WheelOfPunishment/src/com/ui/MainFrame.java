@@ -8,6 +8,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import com.wheel.components.Wheel;
+
 /**
  * Is the frame that holds all buttons and panels for the game.
  *
@@ -66,6 +68,11 @@ public final class MainFrame extends JFrame {
      */
     private final int    borderSize  = 5;
 
+    /**
+     * The wheel for the game.
+     */
+    private Wheel        wheel       = null;
+
 
     /**
      * Create the frame.
@@ -78,7 +85,11 @@ public final class MainFrame extends JFrame {
         contentPane.setBorder(new EmptyBorder(borderSize, borderSize, borderSize, borderSize));
         contentPane.setLayout(new BorderLayout(0, 0));
         setContentPane(contentPane);
+
+        wheel = new Wheel();
+
         initializeButtons();
+
 
     }
 
@@ -111,7 +122,7 @@ public final class MainFrame extends JFrame {
      * Spins the wheel.
      */
     public void spinWheel() {
-        System.err.println("Spin");
+        System.err.println(wheel.spin());
     }
 
 }
