@@ -6,6 +6,22 @@ package com.wheel.components;
  *
  * @author niklj_000
  */
-public class Wheel {
+public final class Wheel {
+
+    /**
+     * Allows user to edit the options of the wheel.
+     */
+    public void edit() {
+        System.err.println("Edit");
+    }
+
+    /**
+     * Spins the Wheel.
+     *
+     * @return string The section that it landed on.
+     */
+    public String spin() {
+        return "Spin";
+    }
 
 }
