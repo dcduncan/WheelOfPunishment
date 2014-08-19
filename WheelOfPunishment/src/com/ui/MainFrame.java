@@ -74,22 +74,33 @@ public class MainFrame extends JFrame {
      * Create the frame.
      */
     public MainFrame() {
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setBounds(
-                this.xStartBound, this.yStartBound, this.xEndBound, this.yEndBound);
-        this.contentPane = new JPanel();
-        this.contentPane.setBorder(new EmptyBorder(this.borderSize, this.borderSize,
-                this.borderSize, this.borderSize));
-        this.contentPane.setLayout(new BorderLayout(0, 0));
-        this.setContentPane(this.contentPane);
+                xStartBound, yStartBound, xEndBound, yEndBound);
+        contentPane = new JPanel();
+        contentPane.setBorder(new EmptyBorder(borderSize, borderSize, borderSize, borderSize));
+        contentPane.setLayout(new BorderLayout(0, 0));
+        setContentPane(contentPane);
+        initializeButtons();
+
+    }
+
+    /**
+     * Initializes the buttons and the button listener.
+     */
+    private void initializeButtons() {
+        final ButtonListener buttonListener = new ButtonListener();
 
         final JButton btnSpinTheWheel = new JButton("Spin The Wheel!");
-        this.contentPane.add(
+        contentPane.add(
                 btnSpinTheWheel, BorderLayout.SOUTH);
+        btnSpinTheWheel.addActionListener(buttonListener);
 
         final JButton btnEditWheelOptions = new JButton("Edit Wheel Options");
-        this.contentPane.add(
+        contentPane.add(
                 btnEditWheelOptions, BorderLayout.NORTH);
+        btnEditWheelOptions.addActionListener(buttonListener);
+
     }
 
 }
