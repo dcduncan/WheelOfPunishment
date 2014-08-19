@@ -14,7 +14,7 @@ import javax.swing.border.EmptyBorder;
  * @author niklj_000
  */
 @SuppressWarnings("serial")
-public class MainFrame extends JFrame {
+public final class MainFrame extends JFrame {
 
     /**
      * Launch the application.
@@ -66,9 +66,6 @@ public class MainFrame extends JFrame {
      */
     private final int    borderSize  = 5;
 
-    /**
-     * The
-     */
 
     /**
      * Create the frame.
@@ -86,10 +83,17 @@ public class MainFrame extends JFrame {
     }
 
     /**
+     * Opens dialog to edit the wheels options.
+     */
+    public void editWheelOptions() {
+        System.err.println("Edit");
+    }
+
+    /**
      * Initializes the buttons and the button listener.
      */
     private void initializeButtons() {
-        final ButtonListener buttonListener = new ButtonListener();
+        final ButtonListener buttonListener = new ButtonListener(this);
 
         final JButton btnSpinTheWheel = new JButton("Spin The Wheel!");
         contentPane.add(
@@ -101,6 +105,13 @@ public class MainFrame extends JFrame {
                 btnEditWheelOptions, BorderLayout.NORTH);
         btnEditWheelOptions.addActionListener(buttonListener);
 
+    }
+
+    /**
+     * Spins the wheel.
+     */
+    public void spinWheel() {
+        System.err.println("Spin");
     }
 
 }
