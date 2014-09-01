@@ -24,6 +24,7 @@ public final class MainFrame extends JFrame {
      * @param args String []
      */
     public static void main(final String[] args) {
+
         EventQueue.invokeLater(new Runnable() {
 
             @Override
@@ -31,6 +32,7 @@ public final class MainFrame extends JFrame {
                 try {
                     final MainFrame frame = new MainFrame();
                     frame.setVisible(true);
+
                 } catch (final Exception e) {
                     e.printStackTrace();
                 }
@@ -44,34 +46,19 @@ public final class MainFrame extends JFrame {
     private final JPanel contentPane;
 
     /**
-     * The x ending bound of the screen.
+     * The size of the screen.
      */
-    private final int    xEndBound   = 750;
-
-    /**
-     * The y ending bound of the screen.
-     */
-    private final int    yEndBound   = 750;
-
-    /**
-     * The x starting bound of the screen.
-     */
-    private final int    xStartBound = 750;
-
-    /**
-     * The y starting bound of the screen.
-     */
-    private final int    yStartBound = 750;
+    private final int    size       = 750;
 
     /**
      * The pixel border size.
      */
-    private final int    borderSize  = 5;
+    private final int    borderSize = 5;
 
     /**
      * The wheel for the game.
      */
-    private Wheel        wheel       = null;
+    private Wheel        wheel      = null;
 
 
     /**
@@ -80,13 +67,14 @@ public final class MainFrame extends JFrame {
     public MainFrame() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setBounds(
-                xStartBound, yStartBound, xEndBound, yEndBound);
+                0, 0, size, size);
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(borderSize, borderSize, borderSize, borderSize));
         contentPane.setLayout(new BorderLayout(0, 0));
         setContentPane(contentPane);
 
         wheel = new Wheel();
+        contentPane.add(wheel);
 
         initializeButtons();
 
