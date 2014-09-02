@@ -46,9 +46,14 @@ public final class MainFrame extends JFrame {
     private final JPanel contentPane;
 
     /**
-     * The size of the screen.
+     * The width of the screen.
      */
-    private final int    size       = 750;
+    private final int    width      = 1500;
+
+    /**
+     * The height of the screen.
+     */
+    private final int    height     = 1000;
 
     /**
      * The pixel border size.
@@ -67,7 +72,7 @@ public final class MainFrame extends JFrame {
     public MainFrame() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setBounds(
-                0, 0, size, size);
+                0, 0, width, height);
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(borderSize, borderSize, borderSize, borderSize));
         contentPane.setLayout(new BorderLayout(0, 0));

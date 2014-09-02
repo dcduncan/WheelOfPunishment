@@ -65,8 +65,8 @@ public final class Wheel extends JComponent {
     @Override
     public void paint(final Graphics g) {
 
-        final int width = 1200;
-        final int height = 1200;
+        final int width = 800;
+        final int height = 800;
 
         final int degreesInCircle = 360;
         final int numberOfSections = 12;
