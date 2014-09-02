@@ -27,27 +27,46 @@ public final class Wheel extends JComponent {
      */
     @Override
     public void paint(final Graphics g) {
+
+        final int width = 100;
+        final int height = 100;
+
+        final int degreesInCircle = 360;
+        final int numberOfSections = 7;
+        final int delta = (int) Math.ceil((double) degreesInCircle / numberOfSections);
+
+        final int xPos = (int) (g.getClipBounds().getWidth() - width) / 2;
+        final int yPos = (int) (g.getClipBounds().getHeight() - height) / 2;
+
+        int currentSection = 0;
+
         g.setColor(Color.RED);
         g.fillArc(
-                100, 100, 100, 100, 0, 51);
+                xPos, yPos, width, height, currentSection * delta, delta);
+        ++currentSection;
         g.setColor(Color.ORANGE);
         g.fillArc(
-                100, 100, 100, 100, 51, 52);
+                xPos, yPos, width, height, currentSection * delta, delta);
+        ++currentSection;
         g.setColor(Color.YELLOW);
         g.fillArc(
-                100, 100, 100, 100, 103, 51);
+                xPos, yPos, width, height, currentSection * delta, delta);
+        ++currentSection;
         g.setColor(Color.GREEN);
         g.fillArc(
-                100, 100, 100, 100, 154, 52);
+                xPos, yPos, width, height, currentSection * delta, delta);
+        ++currentSection;
         g.setColor(Color.BLUE);
         g.fillArc(
-                100, 100, 100, 100, 206, 51);
+                xPos, yPos, width, height, currentSection * delta, delta);
+        ++currentSection;
         g.setColor(Color.PINK);
         g.fillArc(
-                100, 100, 100, 100, 257, 52);
+                xPos, yPos, width, height, currentSection * delta, delta);
+        ++currentSection;
         g.setColor(Color.GRAY);
         g.fillArc(
-                100, 100, 100, 100, 308, 52);
+                xPos, yPos, width, height, currentSection * delta, delta);
 
 
     }
