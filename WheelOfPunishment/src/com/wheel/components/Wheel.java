@@ -2,6 +2,7 @@ package com.wheel.components;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.util.Random;
 
 import javax.swing.JComponent;
 
@@ -49,6 +50,8 @@ public final class Wheel extends JComponent {
                 return Color.GRAY;
             case 9:
                 return Color.BLACK;
+            case 10:
+                return Color.WHITE;
             default:
                 return randomColor(currentSection);
         }
@@ -62,11 +65,11 @@ public final class Wheel extends JComponent {
     @Override
     public void paint(final Graphics g) {
 
-        final int width = 100;
-        final int height = 100;
+        final int width = 1200;
+        final int height = 1200;
 
         final int degreesInCircle = 360;
-        final int numberOfSections = 11;
+        final int numberOfSections = 12;
         final int delta = (int) Math.ceil((double) degreesInCircle / numberOfSections);
 
         final int xPos = (int) (g.getClipBounds().getWidth() - width) / 2;
@@ -88,7 +91,10 @@ public final class Wheel extends JComponent {
      * @return Color, for coloring the wheel.
      */
     private Color randomColor(final int seed) {
-        return Color.WHITE;
+        final int colorMax = 255;
+        Random random = new Random(seed);
+        return new Color(random.nextInt(colorMax), random.nextInt(colorMax),
+                random.nextInt(colorMax));
     }
 
     /**
