@@ -12,12 +12,33 @@ import javax.swing.JComponent;
  *
  * @author niklj_000
  */
+@SuppressWarnings("serial")
 public final class Wheel extends JComponent {
+
+    /**
+     * Predefined choices for the wheel section colors.
+     *
+     * @author niklj_000
+     */
+    private enum WheelColor {
+        /**
+         * The predefined color choices.
+         */
+        RED, ORANGE, YELLOW, GREEN, BLUE, PINK, MAGENTA, CYAN, GRAY, BLACK, WHITE
+    }
 
     /**
      * The number of sections that are in the wheel.
      */
-    private int numberOfSections = 12;
+    private int numberOfSections = 0;
+
+    /**
+     * Constructs the wheel with the default number of sections.
+     */
+    public Wheel() {
+        final int defaultNumberOfSections = 12;
+        numberOfSections = defaultNumberOfSections;
+    }
 
     /**
      * Adds an additional section to the wheel.
@@ -40,28 +61,29 @@ public final class Wheel extends JComponent {
      * @return Color, the color for the section.
      */
     private Color getColor(final int currentSection) {
-        switch (currentSection) {
-            case 0:
+        WheelColor color = getWheelColor(currentSection);
+        switch (color) {
+            case RED:
                 return Color.RED;
-            case 1:
+            case ORANGE:
                 return Color.ORANGE;
-            case 2:
+            case YELLOW:
                 return Color.YELLOW;
-            case 3:
+            case GREEN:
                 return Color.GREEN;
-            case 4:
+            case BLUE:
                 return Color.BLUE;
-            case 5:
+            case PINK:
                 return Color.PINK;
-            case 6:
+            case MAGENTA:
                 return Color.MAGENTA;
-            case 7:
+            case CYAN:
                 return Color.CYAN;
-            case 8:
+            case GRAY:
                 return Color.GRAY;
-            case 9:
+            case BLACK:
                 return Color.BLACK;
-            case 10:
+            case WHITE:
                 return Color.WHITE;
             default:
                 return randomColor(currentSection);
@@ -75,6 +97,21 @@ public final class Wheel extends JComponent {
      */
     public int getNumberOfSections() {
         return numberOfSections;
+    }
+
+    /**
+     * Gets the enum of the wheel color.
+     *
+     * @param currentSection int to determine which enum to use.
+     * @return WheelColor, the color to use.
+     */
+    private WheelColor getWheelColor(final int currentSection) {
+        WheelColor[] colors = WheelColor.values();
+        if ((currentSection >= 0) && (currentSection < colors.length)) {
+            return colors[currentSection];
+        } else {
+            return null;
+        }
     }
 
     /**
