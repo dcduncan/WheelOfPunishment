@@ -14,6 +14,17 @@ import javax.swing.JComponent;
  */
 public final class Wheel extends JComponent {
 
+    /**
+     * The number of sections that are in the wheel.
+     */
+    private int numberOfSections = 12;
+
+    /**
+     * Adds an additional section to the wheel.
+     */
+    public void addSection() {
+        ++numberOfSections;
+    }
 
     /**
      * Allows user to edit the options of the wheel.
@@ -58,6 +69,15 @@ public final class Wheel extends JComponent {
     }
 
     /**
+     * Retrieves the current amount of sections from the wheel.
+     *
+     * @return int, the number of sections in the wheel.
+     */
+    public int getNumberOfSections() {
+        return numberOfSections;
+    }
+
+    /**
      * Draws the wheel on the graphics.
      *
      * @param g Graphics which will draw the wheel.
@@ -67,9 +87,8 @@ public final class Wheel extends JComponent {
 
         final int width = 800;
         final int height = 800;
-
         final int degreesInCircle = 360;
-        final int numberOfSections = 12;
+
         final int delta = (int) Math.ceil((double) degreesInCircle / numberOfSections);
 
         final int xPos = (int) (g.getClipBounds().getWidth() - width) / 2;
@@ -98,6 +117,15 @@ public final class Wheel extends JComponent {
     }
 
     /**
+     * Sets the number of sections for the wheel.
+     *
+     * @param numSections int of how many sections to set.
+     */
+    public void setNumberOfSections(final int numSections) {
+        numberOfSections = numSections;
+    }
+
+    /**
      * Spins the Wheel.
      *
      * @return string The section that it landed on.
@@ -106,4 +134,10 @@ public final class Wheel extends JComponent {
         return "Spin";
     }
 
+    /**
+     * Subtracts one sections from the wheel.
+     */
+    public void subtractSection() {
+        --numberOfSections;
+    }
 }

@@ -90,8 +90,7 @@ public final class MainFrame extends JFrame {
      * Opens dialog to edit the wheels options.
      */
     public void editWheelOptions() {
-        System.err.println("Edit");
-        new SettingsFrame();
+        new SettingsFrame(wheel);
     }
 
     /**
