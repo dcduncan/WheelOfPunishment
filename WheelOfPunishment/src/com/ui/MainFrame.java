@@ -91,6 +91,7 @@ public final class MainFrame extends JFrame {
      */
     public void editWheelOptions() {
         System.err.println("Edit");
+        new SettingsFrame();
     }
 
     /**
