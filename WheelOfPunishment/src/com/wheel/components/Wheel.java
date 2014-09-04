@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.Arc2D;
+import java.util.ArrayList;
 import java.util.Random;
 
 import javax.swing.JComponent;
@@ -32,7 +33,12 @@ public final class Wheel extends JComponent {
     /**
      * The number of sections that are in the wheel.
      */
-    private int numberOfSections = 0;
+    private int              numberOfSections = 0;
+
+    /**
+     * List that holds all of the arcs.
+     */
+    private ArrayList<Arc2D> arcList;
 
     /**
      * Constructs the wheel with the default number of sections.
@@ -40,6 +46,7 @@ public final class Wheel extends JComponent {
     public Wheel() {
         final int defaultNumberOfSections = 12;
         numberOfSections = defaultNumberOfSections;
+        arcList = new ArrayList<Arc2D>();
     }
 
     /**
@@ -124,7 +131,7 @@ public final class Wheel extends JComponent {
     @Override
     public void paint(final Graphics graphics) {
 
-        Graphics2D g2D = (Graphics2D) graphics;
+        Graphics2D g = (Graphics2D) graphics;
 
         final int width = 800;
         final int height = 800;
@@ -132,21 +139,24 @@ public final class Wheel extends JComponent {
 
         final int delta = (int) Math.ceil((double) degreesInCircle / numberOfSections);
 
-        final int xPos = (int) (g2D.getClipBounds().getWidth() - width) / 2;
-        final int yPos = (int) (g2D.getClipBounds().getHeight() - height) / 2;
+        final int xPos = (int) (g.getClipBounds().getWidth() - width) / 2;
+        final int yPos = (int) (g.getClipBounds().getHeight() - height) / 2;
 
-        Arc2D.Double arc = new Arc2D.Double(Arc2D.PIE);
-        arc.setFrame(
-                xPos, yPos, width, height);
 
         int currentSection = 0;
         do {
+            Arc2D.Double arc = new Arc2D.Double(Arc2D.PIE);
+            arc.setFrame(
+                    xPos, yPos, width, height);
             arc.setAngleStart(currentSection * delta);
             arc.setAngleExtent(delta);
-            g2D.setColor(getColor(currentSection));
-            g2D.draw(arc);
-            g2D.fill(arc);
-
+            g.setColor(getColor(currentSection));
+            g.draw(arc);
+            g.fill(arc);
+            arcList.add(arc);
+            /*
+             * g.fillArc( xPos, yPos, width, height, currentSection * delta, delta);
+             */
             ++currentSection;
         } while (currentSection < numberOfSections);
     }
