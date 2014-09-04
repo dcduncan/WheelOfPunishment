@@ -1,7 +1,6 @@
 /**
  * Contains the main running class.
- */
-/**
+ *
  * @author niklj_000
  *
  */
