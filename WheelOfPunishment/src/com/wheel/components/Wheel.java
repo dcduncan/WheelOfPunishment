@@ -24,7 +24,7 @@ public final class Wheel extends JComponent {
         /**
          * The predefined color choices.
          */
-        RED, ORANGE, YELLOW, GREEN, BLUE, PINK, MAGENTA, CYAN, GRAY, BLACK, WHITE
+        RED, ORANGE, YELLOW, GREEN, BLUE, PINK, MAGENTA, CYAN, GRAY, BLACK, WHITE, NULL
     }
 
     /**
@@ -107,10 +107,10 @@ public final class Wheel extends JComponent {
      */
     private WheelColor getWheelColor(final int currentSection) {
         WheelColor[] colors = WheelColor.values();
-        if ((currentSection >= 0) && (currentSection < colors.length)) {
+        if ((currentSection >= 0) && (currentSection < (colors.length - 1))) {
             return colors[currentSection];
         } else {
-            return null;
+            return colors[colors.length - 1];
         }
     }
 
