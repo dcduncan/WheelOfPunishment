@@ -1,13 +1,13 @@
 package com.ui;
 
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import com.listeners.ButtonListener;
 import com.wheel.components.Wheel;
 
 /**
@@ -17,28 +17,6 @@ import com.wheel.components.Wheel;
  */
 @SuppressWarnings("serial")
 public final class MainFrame extends JFrame {
-
-    /**
-     * Launch the application.
-     *
-     * @param args String []
-     */
-    public static void main(final String[] args) {
-
-        EventQueue.invokeLater(new Runnable() {
-
-            @Override
-            public void run() {
-                try {
-                    final MainFrame frame = new MainFrame();
-                    frame.setVisible(true);
-
-                } catch (final Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-    }
 
     /**
      * The content pane in which the wheel will go.
