@@ -58,6 +58,7 @@ public final class MainFrame extends JFrame {
 
         wheel = new Wheel();
         contentPane.add(wheel);
+        contentPane.addMouseListener(wheel);
 
         initializeButtons();
 

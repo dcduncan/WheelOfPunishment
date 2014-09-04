@@ -3,7 +3,8 @@ package com.wheel.components;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.geom.Arc2D;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -16,7 +17,7 @@ import javax.swing.JComponent;
  * @author niklj_000
  */
 @SuppressWarnings("serial")
-public final class Wheel extends JComponent {
+public final class Wheel extends JComponent implements MouseListener {
 
     /**
      * Predefined choices for the wheel section colors.
@@ -33,12 +34,12 @@ public final class Wheel extends JComponent {
     /**
      * The number of sections that are in the wheel.
      */
-    private int              numberOfSections = 0;
+    private int            numberOfSections = 0;
 
     /**
      * List that holds all of the arcs.
      */
-    private ArrayList<Arc2D> arcList;
+    private ArrayList<Arc> arcList;
 
     /**
      * Constructs the wheel with the default number of sections.
@@ -46,7 +47,7 @@ public final class Wheel extends JComponent {
     public Wheel() {
         final int defaultNumberOfSections = 12;
         numberOfSections = defaultNumberOfSections;
-        arcList = new ArrayList<Arc2D>();
+        arcList = new ArrayList<Arc>();
     }
 
     /**
@@ -123,6 +124,41 @@ public final class Wheel extends JComponent {
         }
     }
 
+    @Override
+    public void mouseClicked(final MouseEvent m) {
+        for (Arc arc : arcList) {
+            if (arc.contains(
+                    m.getX(), m.getY())) {
+                System.err.println(arc.getDescription());
+                break;
+            }
+        }
+    }
+
+    @Override
+    public void mouseEntered(final MouseEvent m) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void mouseExited(final MouseEvent m) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void mousePressed(final MouseEvent m) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void mouseReleased(final MouseEvent m) {
+        // TODO Auto-generated method stub
+
+    }
+
     /**
      * Draws the wheel on the graphics.
      *
@@ -145,12 +181,14 @@ public final class Wheel extends JComponent {
 
         int currentSection = 0;
         do {
-            Arc2D.Double arc = new Arc2D.Double(Arc2D.PIE);
+            Arc arc = new Arc();
             arc.setFrame(
                     xPos, yPos, width, height);
             arc.setAngleStart(currentSection * delta);
             arc.setAngleExtent(delta);
             g.setColor(getColor(currentSection));
+            arc.setDescription(getColor(
+                    currentSection).toString());
             g.draw(arc);
             g.fill(arc);
             arcList.add(arc);
