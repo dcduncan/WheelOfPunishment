@@ -2,6 +2,8 @@ package com.wheel.components;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.geom.Arc2D;
 import java.util.Random;
 
 import javax.swing.JComponent;
@@ -117,10 +119,12 @@ public final class Wheel extends JComponent {
     /**
      * Draws the wheel on the graphics.
      *
-     * @param g Graphics which will draw the wheel.
+     * @param graphics Graphics which will draw the wheel.
      */
     @Override
-    public void paint(final Graphics g) {
+    public void paint(final Graphics graphics) {
+
+        Graphics2D g2D = (Graphics2D) graphics;
 
         final int width = 800;
         final int height = 800;
@@ -128,14 +132,21 @@ public final class Wheel extends JComponent {
 
         final int delta = (int) Math.ceil((double) degreesInCircle / numberOfSections);
 
-        final int xPos = (int) (g.getClipBounds().getWidth() - width) / 2;
-        final int yPos = (int) (g.getClipBounds().getHeight() - height) / 2;
+        final int xPos = (int) (g2D.getClipBounds().getWidth() - width) / 2;
+        final int yPos = (int) (g2D.getClipBounds().getHeight() - height) / 2;
+
+        Arc2D.Double arc = new Arc2D.Double(Arc2D.PIE);
+        arc.setFrame(
+                xPos, yPos, width, height);
 
         int currentSection = 0;
         do {
-            g.setColor(getColor(currentSection));
-            g.fillArc(
-                    xPos, yPos, width, height, currentSection * delta, delta);
+            arc.setAngleStart(currentSection * delta);
+            arc.setAngleExtent(delta);
+            g2D.setColor(getColor(currentSection));
+            g2D.draw(arc);
+            g2D.fill(arc);
+
             ++currentSection;
         } while (currentSection < numberOfSections);
     }
