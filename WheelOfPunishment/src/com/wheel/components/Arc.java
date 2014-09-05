@@ -16,6 +16,11 @@ public final class Arc extends Arc2D.Double {
      */
     private String description;
 
+    /**
+     * The integer that determines the color for the Arc.
+     */
+    private int    color;
+
 
     /**
      * Initializes the arc properly to be filled.
@@ -26,10 +31,28 @@ public final class Arc extends Arc2D.Double {
 
 
     /**
+     * @return the color
+     */
+    public int getColor() {
+        return color;
+    }
+
+
+    /**
      * @return String, the description
      */
     public String getDescription() {
         return description;
+    }
+
+
+    /**
+     * Sets the color of the Arc.
+     *
+     * @param color the color to set
+     */
+    public void setColor(final int color) {
+        this.color = color;
     }
 
     /**
