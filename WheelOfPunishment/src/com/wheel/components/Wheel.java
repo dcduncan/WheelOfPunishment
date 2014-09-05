@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -17,7 +18,7 @@ import javax.swing.JComponent;
  * @author niklj_000
  */
 @SuppressWarnings("serial")
-public final class Wheel extends JComponent implements MouseListener {
+public final class Wheel extends JComponent implements MouseListener, MouseMotionListener {
 
     /**
      * Predefined choices for the wheel section colors.
@@ -41,6 +42,13 @@ public final class Wheel extends JComponent implements MouseListener {
      */
     private ArrayList<Arc> arcList;
 
+    boolean                initial          = true;
+
+    /**
+     * Tells if the wheel is currently spinning.
+     */
+    private boolean        isSpinning;
+
     /**
      * Constructs the wheel with the default number of sections.
      */
@@ -48,6 +56,7 @@ public final class Wheel extends JComponent implements MouseListener {
         final int defaultNumberOfSections = 12;
         numberOfSections = defaultNumberOfSections;
         arcList = new ArrayList<Arc>();
+        isSpinning = false;
     }
 
     /**
@@ -136,6 +145,11 @@ public final class Wheel extends JComponent implements MouseListener {
     }
 
     @Override
+    public void mouseDragged(final MouseEvent e) {
+        // TODO Auto-generated method stub
+    }
+
+    @Override
     public void mouseEntered(final MouseEvent m) {
         // TODO Auto-generated method stub
 
@@ -143,6 +157,12 @@ public final class Wheel extends JComponent implements MouseListener {
 
     @Override
     public void mouseExited(final MouseEvent m) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void mouseMoved(final MouseEvent e) {
         // TODO Auto-generated method stub
 
     }
@@ -156,7 +176,13 @@ public final class Wheel extends JComponent implements MouseListener {
     @Override
     public void mouseReleased(final MouseEvent m) {
         // TODO Auto-generated method stub
-
+        for (Arc arc : arcList) {
+            if (arc.contains(
+                    m.getX(), m.getY())) {
+                System.err.println(spin());
+                break;
+            }
+        }
     }
 
     /**
@@ -171,32 +197,42 @@ public final class Wheel extends JComponent implements MouseListener {
 
         final int width = 800;
         final int height = 800;
-        final int degreesInCircle = 360;
-
-        final int delta = (int) Math.ceil((double) degreesInCircle / numberOfSections);
 
         final int xPos = (int) (g.getClipBounds().getWidth() - width) / 2;
         final int yPos = (int) (g.getClipBounds().getHeight() - height) / 2;
 
+        if (initial) {
+            initial = false;
 
-        int currentSection = 0;
-        do {
-            Arc arc = new Arc();
-            arc.setFrame(
-                    xPos, yPos, width, height);
-            arc.setAngleStart(currentSection * delta);
-            arc.setAngleExtent(delta);
-            g.setColor(getColor(currentSection));
-            arc.setDescription(getColor(
-                    currentSection).toString());
-            g.draw(arc);
-            g.fill(arc);
-            arcList.add(arc);
-            /*
-             * g.fillArc( xPos, yPos, width, height, currentSection * delta, delta);
-             */
-            ++currentSection;
-        } while (currentSection < numberOfSections);
+            final int degreesInCircle = 360;
+            final int delta = (int) Math.ceil((double) degreesInCircle / numberOfSections);
+
+            int currentSection = 0;
+            do {
+                Arc arc = new Arc();
+                arc.setFrame(
+                        xPos, yPos, width, height);
+                arc.setAngleStart(currentSection * delta);
+                arc.setAngleExtent(delta);
+                arc.setColor(currentSection);
+                g.setColor(getColor(arc.getColor()));
+                arc.setDescription(getColor(
+                        currentSection).toString());
+                g.draw(arc);
+                g.fill(arc);
+                arcList.add(arc);
+                /*
+                 * g.fillArc( xPos, yPos, width, height, currentSection * delta, delta);
+                 */
+                ++currentSection;
+            } while (currentSection < numberOfSections);
+        } else {
+            for (Arc arc : arcList) {
+                g.setColor(getColor(arc.getColor()));
+                g.draw(arc);
+                g.fill(arc);
+            }
+        }
     }
 
     /**
@@ -227,6 +263,40 @@ public final class Wheel extends JComponent implements MouseListener {
      * @return string The section that it landed on.
      */
     public String spin() {
+        if (!isSpinning) {
+            isSpinning = true;
+            Thread t = new Thread(new Runnable() {
+
+                @Override
+                public void run() {
+                    int i = 0;
+                    final int maxRotation = 1200;
+                    final int minRotation = 360;
+                    final int smoothRotation = 20;
+                    final int rotation = (int) (Math.random() * maxRotation) + minRotation;
+                    while (i < rotation) {
+
+                        for (Arc arc : arcList) {
+                            arc.setAngleStart(arc.getAngleStart()
+                                    + (((rotation - i) / smoothRotation)));
+                        }
+                        repaint();
+                        revalidate();
+                        ++i;
+
+                        try {
+                            Thread.sleep(smoothRotation);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                    isSpinning = false;
+                }
+            });
+
+            t.start();
+        }
         return "Spin";
     }
 
