@@ -42,7 +42,10 @@ public final class Wheel extends JComponent implements MouseListener, MouseMotio
      */
     private ArrayList<Arc> arcList;
 
-    boolean                initial          = true;
+    /**
+     * Tells if it is the first time drawing the Arc.
+     */
+    private boolean        initial          = true;
 
     /**
      * Tells if the wheel is currently spinning.
